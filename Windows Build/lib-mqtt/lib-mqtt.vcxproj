@@ -118,7 +118,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <OutputFile>$(TargetPath)</OutputFile>
