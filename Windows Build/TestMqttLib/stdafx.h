@@ -16,11 +16,3 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-
-
-// TODO: reference additional headers your program requires here
-#   ifdef XFRAME_PLUGIN_EXPORTS 
-#       define XFRAME_PLUGIN_EXP __declspec(dllexport) 
-#   else 
-#       define XFRAME_PLUGIN_EXP __declspec(dllimport) 
-#   endif 

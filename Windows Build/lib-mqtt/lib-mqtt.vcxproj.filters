@@ -27,12 +27,18 @@
     <ClInclude Include="include\helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\MQTTCallbackWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MqttServicePch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="include\MqttService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MQTTCallbackWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

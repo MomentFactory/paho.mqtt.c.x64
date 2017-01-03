@@ -1,5 +1,11 @@
-#include "MqttServicePch.h"
 #include "MqttService.h"
+#include "MQTTCallbackWrapper.h"
+
+extern "C"
+{
+#include <Thread.h>
+#include <MQTTAsync.h>
+}
 
 MqttService* MqttService::_instance = nullptr;
 
@@ -13,7 +19,7 @@ MqttService::MqttService()
 , _hostname("127.0.0.1")
 , _tcpPort(1883)
 , _clientID("clientMqttXagora")
-, _client(NULL)
+, _client(nullptr)
 , _clientConnected(false)
 {
 	debugLog("MqttService constructor");
@@ -66,85 +72,21 @@ void MqttService::disconnectClient()
 	debugLog("response : " + getStringResponseValue(response));
 }
 
-void MqttService::setHostname(std::string hostname)
+void MqttService::setHostname(const std::string &hostname)
 {
 	_hostname = hostname;
 }
 
-void MqttService::onConnectionSuccess(void* context, MQTTAsync_successData* response)
-{
-	std::string serverHost = response->alt.connect.serverURI;
-	debugLog("Mqtt client connection success to mqtt broker at " + serverHost);
-}
-
-void MqttService::onConnectionFailure(void* context, MQTTAsync_failureData* response)
-{
-	std::string errorMessage = response->message;
-	debugLog("Mqtt client connection failure : " + errorMessage);
-}
-
-void MqttService::onConnectionLost(void* context, char *cause)
-{
-	debugLog("connection lost : " + std::string(cause));
-}
-
-void MqttService::onMessageDelivered(void *context, MQTTAsync_token token)
-{
-	debugLog("message delivered client token : " + std::to_string(token));
-}
-
-int MqttService::onMessageReceived(void *context, char *topicName, int topicLen, MQTTAsync_message* message)
-{
-	char* payloadptr = (char*)message->payload;
-	std::string payload = "";
-
-	for (int i = 0; i < message->payloadlen; i++)
-	{
-		payload += payloadptr[i];
-	}
-
-	debugLog("payload received for '" + std::string(topicName) + "' topic : '" + payload + "' (payload length : " + std::to_string(message->payloadlen) + ")");
-
-	MQTTAsync_freeMessage(&message);
-	MQTTAsync_free(topicName);
-
-	return 1;
-}
-
-void MqttService::onSubscribeSuccess(void* context, MQTTAsync_successData* response)
-{
-	std::string *topicName = static_cast<std::string*>(context);
-	debugLog("Mqtt client subscription to '" + *topicName + "' has succeed.");
-}
-
-void MqttService::onSubscribeFailure(void* context, MQTTAsync_failureData* response)
-{
-	std::string *topicName = static_cast<std::string*>(context);
-	debugLog("Mqtt client subscription to '" + *topicName + "' has failed.");
-}
-
-void MqttService::onUnsubscribeSuccess(void* context, MQTTAsync_successData* response)
-{
-	std::string *topicName = static_cast<std::string*>(context);
-	debugLog("Mqtt client unsubscription to '" + *topicName + "' has succeed.");
-}
-
-void MqttService::onUnsubscribeFailure(void* context, MQTTAsync_failureData* response)
-{
-	std::string *topicName = static_cast<std::string*>(context);
-	debugLog("Mqtt client unsubscription to '" + *topicName + "' has failed.");
-}
-
-void MqttService::subscribeToTopic(std::string topicName, int qos /*= 0*/)
+void MqttService::subscribeToTopic(const std::string &topicName, int qos /*= 0*/)
 {
 	if (_clientConnected)
 	{
 		debugLog("Mqtt client trying to subscribe to '" + topicName + "' topic with qos value to " + std::to_string(qos) + "...");
 		MQTTAsync_responseOptions opts = MQTTAsync_responseOptions_initializer;
 
-		opts.onSuccess = &MqttService::onSubscribeSuccess;
-		opts.onFailure = &MqttService::onSubscribeFailure;
-		opts.context = &topicName;
+		opts.onSuccess = &MQTTCallbackWrapper::onSubscribeSuccess;
+		opts.onFailure = &MQTTCallbackWrapper::onSubscribeFailure;
+		opts.context = new std::string(topicName);
 
 		int response = MQTTAsync_subscribe(_client, topicName.c_str(), qos, &opts);
 		debugLog("response : " + getStringResponseValue(response));
@@ -155,16 +97,16 @@ void MqttService::subscribeToTopic(std::string topicName, int qos /*= 0*/)
 	}
 }
 
-void MqttService::unsubscribeToTopic(std::string topicName)
+void MqttService::unsubscribeToTopic(const std::string &topicName)
 {
 	if (_clientConnected)
 	{
 		debugLog("Mqtt client trying to unsubscribe to '" + topicName + "' topic...");
 		MQTTAsync_responseOptions opts = MQTTAsync_responseOptions_initializer;
 
-		opts.onSuccess = &MqttService::onUnsubscribeSuccess;
-		opts.onFailure = &MqttService::onUnsubscribeFailure;
-		opts.context = &topicName;
+		opts.onSuccess = &MQTTCallbackWrapper::onUnsubscribeSuccess;
+		opts.onFailure = &MQTTCallbackWrapper::onUnsubscribeFailure;
+		opts.context = new std::string(topicName);
 		int response = MQTTAsync_unsubscribe(_client, topicName.c_str(), &opts);
 	}
 	else
@@ -194,15 +136,15 @@ void MqttService::init()
 	opts.keepAliveInterval = _keepAliveInterval;
 	opts.cleansession = 1;
 
-	opts.will = NULL;
-	opts.ssl = NULL;
+	opts.will = nullptr;
+	opts.ssl = nullptr;
 	
-	opts.onSuccess = &MqttService::onConnectionSuccess;
-	opts.onFailure = &MqttService::onConnectionFailure;
+	opts.onSuccess = &MQTTCallbackWrapper::onConnectionSuccess;
+	opts.onFailure = &MQTTCallbackWrapper::onConnectionFailure;
 
 	opts.context = _client;
 
-	response = MQTTAsync_setCallbacks(_client, NULL, &MqttService::onConnectionLost, &MqttService::onMessageReceived, &MqttService::onMessageDelivered);
+	response = MQTTAsync_setCallbacks(_client, NULL, &MQTTCallbackWrapper::onConnectionLost, &MQTTCallbackWrapper::onMessageReceived, &MQTTCallbackWrapper::onMessageDelivered);
 
 	debugLog("trying Mqtt client connection...");
 	response = MQTTAsync_connect(_client, &opts);
@@ -218,14 +160,14 @@ void MqttService::init()
 	}
 }
 
-void MqttService::debugLog(std::string message)
+void MqttService::debugLog(const std::string &message)
 {
 	std::cout << "---" << message << "---" << std::endl;
 }
 
-std::string MqttService::getStringResponseValue(int response)
+std::string MqttService::getStringResponseValue(int response) const
 {
-	std::string stringResponse = "";
+	std::string stringResponse;
 
 	switch (response)
 	{

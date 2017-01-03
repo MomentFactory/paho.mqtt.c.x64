@@ -15,7 +15,6 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-#include "Thread.h"
 
 // TODO: reference additional headers your program requires here
 #include <string>
@@ -24,11 +23,6 @@
 
 extern "C"
 {
-#include "MQTTAsync.h"
+#include <Thread.h>
+#include <MQTTAsync.h>
 }
-
-#ifdef XFRAME_PLUGIN_EXPORTS 
-#       define XFRAME_PLUGIN_EXP __declspec(dllexport) 
-#else 
-#       define XFRAME_PLUGIN_EXP __declspec(dllimport) 
-#endif 
