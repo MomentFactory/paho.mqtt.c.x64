@@ -99,13 +99,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\lib-mqtt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\lib-mqtt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -137,15 +137,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\lib-mqtt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\lib-mqtt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\lib-mqtt\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

@@ -117,8 +117,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <OutputFile>$(TargetPath)</OutputFile>
@@ -127,7 +127,7 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName)_d.dll"</Command>
+      <Command>copy /Y "$(TargetDir)$(ProjectName)_d.dll" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName)_d.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -166,8 +166,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(XLIBS_DIR)\paho_mqtt\Windows Build\paho-mqtt3as\bin\$(Platform)\$(Configuration)\paho-mqtt3as.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <OutputFile>$(TargetPath)</OutputFile>
@@ -176,7 +176,7 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(XLIBS_DIR)\paho.mqtt.c.x64\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName).dll"</Command>
+      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName).dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
