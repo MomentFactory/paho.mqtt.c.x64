@@ -112,7 +112,10 @@
       <AdditionalLibraryDirectories>$(XLIBS_DIR)\openssl\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName)_d.dll" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName)_d.dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(XLIBS_DIR)\bin\$(Platform)\"
+copy /Y "$(TargetDir)\$(TargetName).pdb" "$(XLIBS_DIR)\bin\$(Platform)\"
+copy /Y "$(TargetPath)" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\"
+copy /Y "$(TargetDir)\$(TargetName).pdb" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -155,7 +158,10 @@
       <AdditionalLibraryDirectories>$(XLIBS_DIR)\openssl\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\$(ProjectName).dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(XLIBS_DIR)\bin\$(Platform)\"
+copy /Y "$(TargetDir)\$(TargetName).pdb" "$(XLIBS_DIR)\bin\$(Platform)\"
+copy /Y "$(TargetPath)" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\"
+copy /Y "$(TargetDir)\$(TargetName).pdb" "$(XLIBS_DIR)\paho_mqtt\Windows Build\TestMqttLib\bin\$(Platform)\$(Configuration)\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
